@@ -11,9 +11,9 @@ import random
 import os
 import discord
 from discord.ext import commands
-from .dTracker.py import dtrack
+from dTracker import dtrack
 
-BaralBot = commands.Bot(command_prefix='')
+BaralBot = commands.Bot(command_prefix='`')
 
 BotKey = ""
 riotAPIKey = ""
@@ -32,17 +32,19 @@ async def on_ready():
 
 #just a simple help menu
 @BaralBot.command()
-async def halp(ctx):
+async def helpme(ctx):
     halp = """
     ```
     ---------------------------------------------------------------------
     Help Menu
 
     word    -    Takes in a string as input and produces stylish text
+        Example. `word BOBBYB
 
+    decay   -    Displays how long a user has before they decay
+        Example. `decay Chaddam Hussein
     ---------------------------------------------------------------------
-    
-    """
+    ```"""
     await ctx.send(halp)
 
 #PRINTS SOMETHING TO THE CONSOLE WHEN SOMEONE SENDS A MESSAGE
@@ -62,6 +64,7 @@ async def word(ctx, *, message):
 #This command takes input and produces ascii word art in its place
 @BaralBot.command(pass_context=True)
 async def decay(ctx, *, message):
+    await ctx.send("Querying......")
     await ctx.send(dtrack(message, riotAPIKey))
 
 BaralBot.run(BotKey)
